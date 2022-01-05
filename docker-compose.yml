@@ -7,22 +7,29 @@ services:
   - ./backend:/backend
   working_dir: /backend
   command: sh -c "pip install -r requirements.txt && python main.py"
+  networks: 
+    - main
 
   
  front:
   image: node:14-buster
   ports:
-  - 80:8080
+  - 80:80
   environment:
-  - xd:xd
+    API_HOST: "sim"
   
   volumes:
   - ./frontend:/frontend
   working_dir: /frontend
   command: sh -c "npm i && npm run dev"
+  networks: 
+    - main
 
 
 
 volumes:
   frontend:
   backend:
+
+networks:
+  main:
